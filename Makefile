@@ -20,8 +20,17 @@ all: $(DIRS) rhythmsuite
 rhythmsuite: $(CSOURCEFILE)
 	$(CC) $(CSOURCEFILE) $(OBJECTS) -o $(EXENAME) $(CFLAGS) $(LIBS)
 
-$(DIRS):
+$(DIRS): | $(BUILDDIR) $(BINDIR) $(OBJDIR)
 	+$(MAKE) -C $@
+	
+$(BUILDDIR):
+	mkdir $(BUILDDIR)
+	
+$(BINDIR):
+	mkdir $(BINDIR)
+	
+$(OBJDIR):
+	mkdir $(OBJDIR)
 
 clean:
 	-make -C framework clean 
