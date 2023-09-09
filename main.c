@@ -8,42 +8,36 @@
 static void delete_temp();
 static void update_exe();
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPreviousInst, LPSTR lpszCmdLine, int nCmdShow)
-{
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPreviousInst, LPSTR lpszCmdLine, int nCmdShow) {
 	CoInitialize(NULL);
 	
 	ImmDisableIME(0);
 	
 	delete_temp();
 	
-	if(init_video() == -1)
-	{
+	if(init_video() == -1) {
 		return -1;
 	}
 	
-	if(init_text() == -1)
-	{
+	if(init_text() == -1) {
 		destroy_video();
 		return -1;
 	}
 	
-	if(init_image() == -1)
-	{
+	if(init_image() == -1) {
 		destroy_text();
 		destroy_video();
 		return -1;
 	}
 
-	if(init_shapes() == -1)
-	{
+	if(init_shapes() == -1) {
 		destroy_image();
 		destroy_text();
 		destroy_video();
 		return -1;
 	}
 	
-	if(init_audio() == -1)
-	{
+	if(init_audio() == -1) {
 		destroy_shapes();
 		destroy_image();
 		destroy_text();
@@ -61,11 +55,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPreviousInst, LPSTR lpszCmd
 	start_frametimer();
 	srand(time(0));
 	
-	while(retVal_ != -1 && retVal_ != MENU_EXIT)
-	{
+	while(retVal_ != -1 && retVal_ != MENU_EXIT) {
 		retVal_ = menu_loop();
-		switch(retVal_)
-		{
+		switch(retVal_) {
 			case MENU_START:
 				songselect();
 				break;
@@ -98,16 +90,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPreviousInst, LPSTR lpszCmd
 	dbupdate_stat(get_globaltime(),0);
 	
 	retVal_ = 0;
-	if(server_->sdata_[MESSAGE_CHECKUPDATE-1].status == 1)
-	{
-		if(server_->sdata_[MESSAGE_CHECKUPDATE-1].result[0] == 2)
-		{
+	if(server_->sdata_[MESSAGE_CHECKUPDATE-1].status == 1) {
+		if(server_->sdata_[MESSAGE_CHECKUPDATE-1].result[0] == 2) {
 			//UPDATE EXE
 			FILE* fp = fopen("rhythmsuite_update.exe","wb");
-			if(!fp)
+			if(!fp) {
 				write_error(strerror(errno),NULL,0);
-			else
-			{
+			} else {
 				fwrite(server_->sdata_[MESSAGE_CHECKUPDATE-1].data,1,server_->sdata_[MESSAGE_CHECKUPDATE-1].bytes,fp);
 				fclose(fp);
 				
@@ -132,11 +121,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPreviousInst, LPSTR lpszCmd
 	return 0;
 }
 
-static void delete_temp()
-{
+static void delete_temp() {
 	FILE* fp = fopen("_temp_/rhythmsuite.exe","r");
-	if(fp)
-	{
+	if(fp) {
 		fclose(fp);
 		
 		remove("_temp_/rhythmsuite.exe");
@@ -144,10 +131,8 @@ static void delete_temp()
 	}
 }
 
-static void update_exe()
-{
-	if(CreateDirectory("_temp_",NULL))
-	{
+static void update_exe() {
+	if(CreateDirectory("_temp_",NULL)) {
 		SetFileAttributes("_temp_",FILE_ATTRIBUTE_HIDDEN);
 		rename("rhythmsuite.exe","_temp_/rhythmsuite.exe");
 		rename("rhythmsuite_update.exe","rhythmsuite.exe");
