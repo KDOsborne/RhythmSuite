@@ -1,2 +1,2 @@
 Rhythm Suite depends on: BASS, GLAD, libsodium, and stb_image (header only).
-The DLLs and header files of these should be placed in the "external/libs" folder and "external/include" folder respectively.
+The DLLs and header files of these should be placed on the path or in the "external/libs" folder and "external/include" folder respectively.
