@@ -5,10 +5,4 @@ Rhythm Suite is an osu-like hub for my original rhythm game ideas. Currently the
 
 This idea started development in late 2022 and made its first release in May 2023. With 50 charts, online leaderboards, adjustable rates, a practice mode, and a chart editor, Rhythm Suite can provide hundreds of hours of fun.
 
-Rhythm Suite has the following dependencies:
-  + BASS
-  + GLAD
-  + libsodium
-  + stb_image
-
-To build, simlpy run make.
+To build, simlpy run make. View requirements.txt for a list of dependencies.
